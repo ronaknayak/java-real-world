@@ -25,6 +25,8 @@ Each concept resides in its own package and supplies a `Main.java`, so it can be
 mvn compile
 ```
 
+Verification is performed by the repository owner. Do not run Maven commands automatically after making changes.
+
 ## Conventions for new examples
 
 - Package root: `com.ronak.javarealworld`.

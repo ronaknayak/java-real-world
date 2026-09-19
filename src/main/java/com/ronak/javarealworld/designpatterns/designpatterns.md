@@ -49,3 +49,19 @@ This document records production-style examples under `designpatterns`.
 **Run:** `com.ronak.javarealworld.designpatterns.singleton.Main`
 
 **Takeaway:** Use the holder idiom for lazy thread-safe singleton creation. If reflection and serialization resilience matter, prefer an enum singleton; the constructor guard only stops reflection after the ordinary instance has already been initialized.
+
+## 2026-09-19 - Criteria (Filter) pattern (`designpatterns.criteria`)
+
+**Problem:** A customer-success team needs to build targeted outreach lists from reusable business rules without adding a new query method for every combination of region, account status, and spend.
+
+**Design:** `CustomerCriterion` is a composable rule with `and`, `or`, and `negate` operations. `CustomerCriteria` supplies focused rules for active accounts, region, and minimum spend. `CustomerSearchService` applies any composed criterion while remaining independent of its individual business rules.
+
+**Important classes:**
+
+- `CustomerCriterion`: functional contract for a customer-selection rule and its composition operations.
+- `CustomerCriteria`: factory for reusable business filters.
+- `CustomerSearchService`: application service that filters a supplied customer collection.
+
+**Run:** `com.ronak.javarealworld.designpatterns.criteria.Main`
+
+**Takeaway:** Express changing selection logic as small composable criteria, then keep filtering workflows independent of individual rules and their combinations.
