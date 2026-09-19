@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.designpatterns.criteria;
+package com.ronak.javarealworld.designpatterns.criteria;
 
 import java.util.Objects;
 

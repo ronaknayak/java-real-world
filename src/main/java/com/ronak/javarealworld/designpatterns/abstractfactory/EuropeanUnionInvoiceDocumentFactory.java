@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.designpatterns.abstractfactory;
+package com.ronak.javarealworld.designpatterns.abstractfactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

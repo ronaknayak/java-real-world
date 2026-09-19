@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.designpatterns.criteria;
+package com.ronak.javarealworld.designpatterns.criteria;
 
 import java.math.BigDecimal;
 import java.util.List;
