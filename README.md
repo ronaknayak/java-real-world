@@ -9,6 +9,7 @@ Production-style, standalone Java examples for learning backend engineering conc
 | `solid/` | SOLID principle examples (`srp`, `ocp`, `lsp`, `isp`, `dip`) and runnable anti-patterns in `violations/`. |
 | `designpatterns/` | Production-style design-pattern examples: `factory` and `strategy`. |
 | `oops/` | Object-oriented programming examples, including interface and abstract-class capabilities. |
+| `java8/` | Java functional-interface examples and Java 8+ language features. |
 
 
 Each concept resides in its own package and supplies a `Main.java`, so it can be run directly from IntelliJ IDEA. [solid/solid.md](src/main/java/com/ronak/javarealworld/solid/solid.md), [designpatterns/designpatterns.md](src/main/java/com/ronak/javarealworld/designpatterns/designpatterns.md), and [oops/oops.md](src/main/java/com/ronak/javarealworld/oops/oops.md) document their examples' business problem, design, important classes, run target, and takeaways.
