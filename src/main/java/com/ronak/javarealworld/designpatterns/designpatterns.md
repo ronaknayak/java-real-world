@@ -1,8 +1,10 @@
-# Design patterns
+﻿# Design patterns
 
 This document records production-style examples under `designpatterns`.
 
-## 2026-09-19 — Factory pattern (`designpatterns.factory`)
+## 2026-09-19 â€” Factory pattern (`designpatterns.factory`)
+
+**Reason to use:** Use Factory when the same job can have different implementations, such as card or wallet payments. It lets the rest of the application use one common interface instead of knowing how each option is created.
 
 **Problem:** An e-commerce checkout must choose the appropriate payment integration for card, bank-transfer, and wallet payments without filling checkout policy with conditional provider construction.
 
@@ -18,7 +20,9 @@ This document records production-style examples under `designpatterns`.
 
 **Takeaway:** The factory centralizes object selection. New payment methods require a processor implementation and composition update, without changing checkout flow.
 
-## 2026-09-19 — Strategy pattern (`designpatterns.strategy`)
+## 2026-09-19 â€” Strategy pattern (`designpatterns.strategy`)
+
+**Reason to use:** Use Strategy when one task can follow different rules, such as discounts for different customer tiers. You can switch the rule without changing the main workflow.
 
 **Problem:** An ordering platform applies different commercial discount rules for standard, gold, and enterprise customers. The pricing workflow should not be filled with customer-tier conditionals.
 
@@ -34,11 +38,13 @@ This document records production-style examples under `designpatterns`.
 
 **Takeaway:** Select a strategy at application composition time and keep each changing pricing rule in a focused implementation.
 
-## 2026-09-19 � Singleton pattern (`designpatterns.singleton`)
+## 2026-09-19 — Singleton pattern (`designpatterns.singleton`)
+
+**Reason to use:** Use Singleton when the application should share exactly one object, such as a configuration source. It prevents separate parts of the application from creating conflicting copies.
 
 **Problem:** An account-notification service needs one shared source for its sender configuration. A conventional singleton must remain correct during concurrent access and resist accidental duplication.
 
-**Design:** `VulnerableNotificationSettings` intentionally shows how reflection, serialization, and cloning break a basic singleton. `ThreadSafeNotificationSettings` uses the initialization-on-demand holder idiom for lazy, thread-safe access, adds a constructor guard, `readResolve`, and rejects cloning. `NotificationSettings` is an enum singleton�the preferred option when its API is suitable�because the JVM also protects it from reflection and serialization attacks.
+**Design:** `VulnerableNotificationSettings` intentionally shows how reflection, serialization, and cloning break a basic singleton. `ThreadSafeNotificationSettings` uses the initialization-on-demand holder idiom for lazy, thread-safe access, adds a constructor guard, `readResolve`, and rejects cloning. `NotificationSettings` is an enum singleton—the preferred option when its API is suitable—because the JVM also protects it from reflection and serialization attacks.
 
 **Important classes:**
 
@@ -51,6 +57,8 @@ This document records production-style examples under `designpatterns`.
 **Takeaway:** Use the holder idiom for lazy thread-safe singleton creation. If reflection and serialization resilience matter, prefer an enum singleton; the constructor guard only stops reflection after the ordinary instance has already been initialized.
 
 ## 2026-09-19 - Criteria (Filter) pattern (`designpatterns.criteria`)
+
+**Reason to use:** Use Criteria when users need different combinations of filters, such as active customers in a region with minimum spend. It avoids creating a separate search method for every combination.
 
 **Problem:** A customer-success team needs to build targeted outreach lists from reusable business rules without adding a new query method for every combination of region, account status, and spend.
 
@@ -67,6 +75,8 @@ This document records production-style examples under `designpatterns`.
 **Takeaway:** Express changing selection logic as small composable criteria, then keep filtering workflows independent of individual rules and their combinations.
 
 ## 2026-09-19 - Abstract Factory pattern (`designpatterns.abstractfactory`)
+
+**Reason to use:** Use Abstract Factory when several related objects must change together, such as invoice rules for different regions. It keeps each regional set compatible without adding region checks throughout the workflow.
 
 **Problem:** An order platform creates invoices for several regulatory regions. Invoice numbering and compliance wording must be selected as compatible regional families, without filling the invoice workflow with region-specific conditionals.
 

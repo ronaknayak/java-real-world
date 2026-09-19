@@ -1,4 +1,4 @@
-# java-real-world
+﻿# java-real-world
 
 Production-style, standalone Java examples for learning backend engineering concepts. The project targets Java 17 and uses Maven.
 
@@ -14,7 +14,7 @@ Each concept resides in its own package and supplies a `Main.java`, so it can be
 
 ## Open in IntelliJ IDEA
 
-1. Select **File → Open** and choose this `java-real-world` directory.
+1. Select **File â†’ Open** and choose this `java-real-world` directory.
 2. Import it as a Maven project when prompted.
 3. Configure a Java 17 (or newer) SDK.
 4. Open the desired concept's `Main.java` and run its `main` method.
@@ -35,3 +35,4 @@ Verification is performed by the repository owner. Do not run Maven commands aut
 - Keep examples independently runnable from IntelliJ IDEA; tests are added only when explicitly requested.
 - Do not change unrelated examples while adding a new topic.
 - Document each topic addition in its topic log (for example, `solid/solid.md` or `designpatterns/designpatterns.md`); do not use README files as an addition log.
+- In each topic-log entry, include a short **Reason to use** explanation in simple words.
