@@ -4,7 +4,7 @@ This document records production-style examples under `designpatterns`.
 
 ## 2026-09-19 â€” Factory pattern (`designpatterns.factory`)
 
-**Reason to use:** Use Factory when the same job can have different implementations, such as card or wallet payments. It lets the rest of the application use one common interface instead of knowing how each option is created.
+**Reason to use:** Factory is a creational design pattern used when an application must choose one concrete object from several possible implementations. It hides object-creation details behind a common interface, so callers work with the capability rather than a specific class.
 
 **Problem:** An e-commerce checkout must choose the appropriate payment integration for card, bank-transfer, and wallet payments without filling checkout policy with conditional provider construction.
 
@@ -22,7 +22,7 @@ This document records production-style examples under `designpatterns`.
 
 ## 2026-09-19 â€” Strategy pattern (`designpatterns.strategy`)
 
-**Reason to use:** Use Strategy when one task can follow different rules, such as discounts for different customer tiers. You can switch the rule without changing the main workflow.
+**Reason to use:** Strategy is a behavioral design pattern used when one task can follow different rules or algorithms. It defines a common strategy interface, while concrete strategies provide the behavior selected for a particular context.
 
 **Problem:** An ordering platform applies different commercial discount rules for standard, gold, and enterprise customers. The pricing workflow should not be filled with customer-tier conditionals.
 
@@ -40,7 +40,7 @@ This document records production-style examples under `designpatterns`.
 
 ## 2026-09-19 — Singleton pattern (`designpatterns.singleton`)
 
-**Reason to use:** Use Singleton when the application should share exactly one object, such as a configuration source. It prevents separate parts of the application from creating conflicting copies.
+**Reason to use:** Singleton is a creational design pattern used when an application needs one shared instance of a class, such as configuration settings. It controls construction and provides one access point so separate parts of the application do not create conflicting copies.
 
 **Problem:** An account-notification service needs one shared source for its sender configuration. A conventional singleton must remain correct during concurrent access and resist accidental duplication.
 
@@ -58,7 +58,7 @@ This document records production-style examples under `designpatterns`.
 
 ## 2026-09-19 - Criteria (Filter) pattern (`designpatterns.criteria`)
 
-**Reason to use:** Use Criteria when users need different combinations of filters, such as active customers in a region with minimum spend. It avoids creating a separate search method for every combination.
+**Reason to use:** Criteria, also called Filter, is a behavioral design pattern used when objects must be selected using flexible business rules. It represents each rule as a criterion that can be combined with other criteria instead of creating a separate search method for every combination.
 
 **Problem:** A customer-success team needs to build targeted outreach lists from reusable business rules without adding a new query method for every combination of region, account status, and spend.
 
@@ -76,7 +76,7 @@ This document records production-style examples under `designpatterns`.
 
 ## 2026-09-19 - Abstract Factory pattern (`designpatterns.abstractfactory`)
 
-**Reason to use:** Use Abstract Factory when several related objects must change together, such as invoice rules for different regions. It keeps each regional set compatible without adding region checks throughout the workflow.
+**Reason to use:** Abstract Factory is a creational design pattern used when an application must create families of related or compatible objects. It defines an abstraction for creating multiple product types, while concrete factories provide implementations for a particular product family.
 
 **Problem:** An order platform creates invoices for several regulatory regions. Invoice numbering and compliance wording must be selected as compatible regional families, without filling the invoice workflow with region-specific conditionals.
 
