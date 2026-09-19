@@ -65,3 +65,20 @@ This document records production-style examples under `designpatterns`.
 **Run:** `com.ronak.javarealworld.designpatterns.criteria.Main`
 
 **Takeaway:** Express changing selection logic as small composable criteria, then keep filtering workflows independent of individual rules and their combinations.
+
+## 2026-09-19 - Abstract Factory pattern (`designpatterns.abstractfactory`)
+
+**Problem:** An order platform creates invoices for several regulatory regions. Invoice numbering and compliance wording must be selected as compatible regional families, without filling the invoice workflow with region-specific conditionals.
+
+**Design:** `InvoiceDocumentFactory` creates the related `InvoiceNumberGenerator` and `InvoiceFooterProvider` products. `IndiaInvoiceDocumentFactory` and `EuropeanUnionInvoiceDocumentFactory` supply complete regional families, while `InvoiceDocumentService` depends only on the abstract factory and product interfaces.
+
+**Important classes:**
+
+- `InvoiceDocumentFactory`: abstract factory for a compatible regional invoice component family.
+- `IndiaInvoiceDocumentFactory`: creates Indian invoice-number and GST-footer products.
+- `EuropeanUnionInvoiceDocumentFactory`: creates EU invoice-number and VAT-footer products.
+- `InvoiceDocumentService`: assembles documents without knowing the selected regional implementations.
+
+**Run:** `com.ronak.javarealworld.designpatterns.abstractfactory.Main`
+
+**Takeaway:** Use an abstract factory when several related products must vary together. Select one concrete family at composition time to keep the workflow consistent and independent of regional details.
