@@ -1,4 +1,4 @@
-package com.ronak.javarealworld.java8.functionalinterface;
+package com.ronak.javarealworld.java8.customfuncinterface;
 
 import java.util.Objects;
 

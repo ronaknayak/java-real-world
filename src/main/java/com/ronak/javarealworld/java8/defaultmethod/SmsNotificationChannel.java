@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.java8.defaultmethod;
+package com.ronak.javarealworld.java8.defaultmethod;
 
 /** Another provider that automatically receives the shared default behavior. */
 public final class SmsNotificationChannel implements NotificationChannel {

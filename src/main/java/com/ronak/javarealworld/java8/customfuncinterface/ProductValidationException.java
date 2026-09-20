@@ -1,4 +1,4 @@
-package com.ronak.javarealworld.java8.functionalinterface;
+package com.ronak.javarealworld.java8.customfuncinterface;
 
 /** Checked failure raised when a product cannot be published. */
 public class ProductValidationException extends Exception {

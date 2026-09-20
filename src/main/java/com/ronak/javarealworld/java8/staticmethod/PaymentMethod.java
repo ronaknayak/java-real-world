@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.java8.staticmethod;
+package com.ronak.javarealworld.java8.staticmethod;
 
 public enum PaymentMethod {
     CARD,

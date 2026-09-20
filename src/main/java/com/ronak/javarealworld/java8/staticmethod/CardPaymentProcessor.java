@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.java8.staticmethod;
+package com.ronak.javarealworld.java8.staticmethod;
 
 /** Concrete implementation uses the interface static validation explicitly. */
 public final class CardPaymentProcessor implements PaymentProcessor {

@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.java8.defaultmethod;
+package com.ronak.javarealworld.java8.defaultmethod;
 
 /** Existing provider that only implements the original send capability. */
 public final class EmailNotificationChannel implements NotificationChannel {

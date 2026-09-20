@@ -1,4 +1,4 @@
-﻿package com.ronak.javarealworld.java8.staticmethod;
+package com.ronak.javarealworld.java8.staticmethod;
 
 /** Another implementation that shares helpers through the interface name. */
 public final class BankTransferPaymentProcessor implements PaymentProcessor {

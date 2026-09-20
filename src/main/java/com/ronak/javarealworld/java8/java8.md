@@ -16,7 +16,7 @@ This document records Java 8+ language examples under `java8`.
 - `ProductPublicationValidator`: engine that applies the composed validation rule.
 - `Main`: client code using product-validation lambdas.
 
-**Run:** `com.ronak.javarealworld.java8.functionalinterface.Main`
+**Run:** `com.ronak.javarealworld.java8.customfuncinterface.Main`
 
 **Takeaway:** Use a custom functional interface when the domain meaning, checked failure, or composition is important to the contract.
 
