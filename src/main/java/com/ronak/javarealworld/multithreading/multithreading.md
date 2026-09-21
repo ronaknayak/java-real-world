@@ -107,3 +107,30 @@ Use a private lock when a class needs to protect its own mutable state without e
 ### Takeaway
 
 A `private final` lock keeps synchronization encapsulated. Do not lock on publicly reachable objects such as `this`, strings, or boxed values when unrelated code could acquire the same monitor.
+
+## ReentrantLock bounded dispatch queue
+
+### Business problem
+
+Order-intake workers submit completed orders while fulfillment workers remove them for dispatch. The queue has limited capacity, so workers need a safe way to wait, stop waiting during shutdown, or fail fast when the service is busy.
+
+### Design
+
+`DispatchQueue` uses a fair `ReentrantLock` and two conditions: `dispatchAvailable` for waiting fulfillment workers and `capacityAvailable` for waiting intake workers. It releases the lock in a `finally` block on every path. `submit` and `take` use `lockInterruptibly` so shutdown can interrupt blocked workers. `trySubmit` uses immediate `tryLock` for fail-fast work, while its timed overload uses `tryLock(timeout, unit)` and `awaitNanos` to limit both lock and capacity waiting to one deadline.
+
+### Important classes
+
+- `DispatchQueue` owns the fair reentrant lock, conditions, bounded queue, and queue metrics.
+- `Main` demonstrates blocking submission, immediate fail-fast submission, timed submission, and consumption.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.lockapi.reentrant.Main`
+
+### Reason to use
+
+Use `ReentrantLock` when a synchronized block needs features such as interruptible locking, non-blocking or timed attempts, conditions, fairness, or lock metrics.
+
+### Takeaway
+
+Always pair a successful `lock`, `lockInterruptibly`, or `tryLock` with `unlock` in a `finally` block. Use conditions with a `while` loop because a waiting thread must recheck its queue state after it wakes.
