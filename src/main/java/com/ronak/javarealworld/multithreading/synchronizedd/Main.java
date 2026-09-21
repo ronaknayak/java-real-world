@@ -20,7 +20,7 @@ public final class Main {
         firstOrder.join();
         secondOrder.join();
 
-        System.out.println("Remaining stock: " + inventory.availableUnits());
+        System.out.println("Remaining stock: " + inventory.getAvailableUnits());
     }
 
     private static void reserve(Inventory inventory, String orderId, int units) {

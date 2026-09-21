@@ -38,3 +38,16 @@ Verification is performed by the repository owner. Do not run Maven commands aut
 - Do not change unrelated examples while adding a new topic.
 - Document each topic addition in its topic log (for example, `solid/solid.md` or `designpatterns/designpatterns.md`); do not use README files as an addition log.
 - In each topic-log entry, include a short **Reason to use** explanation in simple words.
+
+
+## Codex Execution Instructions
+
+- Work autonomously within the current project workspace.
+- You are authorized to create, modify, rename, and delete files required for the task.
+- Do not ask for confirmation before editing project files.
+- Do not stop to request permission for routine file changes.
+- Run the required Maven commands, tests, and validations automatically.
+- If an implementation requires changes to multiple files, make all required changes directly.
+- Continue working until the requested task is fully implemented and verified.
+- Only ask for clarification when the requirement itself is ambiguous or a required decision cannot reasonably be determined from the existing project instructions.
+- Do not modify files outside the current project workspace unless explicitly requested.

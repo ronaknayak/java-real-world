@@ -24,15 +24,20 @@ public final class Inventory {
             throw new IllegalArgumentException("Requested units must be positive.");
         }
 
-        if (requestedUnits > availableUnits) {
+        if (requestedUnits > getAvailableUnits()) {
             return false;
         }
 
-        availableUnits -= requestedUnits;
+        updateAvailableUnits(requestedUnits);
+
         return true;
     }
 
-    public synchronized int availableUnits() {
+    public synchronized int getAvailableUnits() {
         return availableUnits;
+    }
+
+    public synchronized void updateAvailableUnits(int requestedUnits) {
+        availableUnits -= requestedUnits;
     }
 }
