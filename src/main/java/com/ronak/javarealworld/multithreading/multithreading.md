@@ -26,3 +26,30 @@ Use `synchronized` when a small, related set of reads and writes must happen as 
 ### Takeaway
 
 The `synchronized` keyword protects a critical section with an object's monitor. Only one thread can execute a synchronized instance method on the same object at a time.
+
+## Static synchronized settlement-batch allocation
+
+### Business problem
+
+Settlement workers may use different service instances while allocating numbers from one shared batch sequence. The sequence must not issue duplicate numbers.
+
+### Design
+
+`SettlementBatchSequence.nextBatchNumber` is a `static synchronized` method. It locks `SettlementBatchSequence.class`, rather than either service instance, so both worker threads coordinate even though they each use a different instance.
+
+### Important classes
+
+- `SettlementBatchSequence` owns the class-wide counter and its class-level lock.
+- `Main` creates two service instances to show that instance identity does not change the static lock.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.staticsynchronized.Main`
+
+### Reason to use
+
+Use `static synchronized` when mutable data belongs to the class and every instance must coordinate access to it.
+
+### Takeaway
+
+A static synchronized method is equivalent to synchronizing on the class object: `synchronized (SettlementBatchSequence.class)`.
