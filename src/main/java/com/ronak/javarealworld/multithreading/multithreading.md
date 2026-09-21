@@ -162,3 +162,31 @@ Use `ReentrantReadWriteLock` when reads are much more common than writes and con
 ### Takeaway
 
 The read lock allows readers to share access; the write lock excludes both readers and other writers. Always release either lock in a `finally` block, and avoid attempting to upgrade from a read lock to a write lock because it can deadlock.
+
+## StampedLock delivery-location tracker
+
+### Business problem
+
+Customers and support systems frequently read a driver's latest location, while the driver application writes new positions far less often. Taking a full read lock for every successful lookup adds avoidable contention.
+
+### Design
+
+`DeliveryLocationTracker.latestLocation` uses `tryOptimisticRead` to read the immutable location without blocking. It calls `validate` before returning the value and falls back to `readLock` when a concurrent writer invalidated the optimistic stamp. `recordLocation` uses `writeLock` for exclusive updates. `refreshIfStale` uses `tryConvertToWriteLock` to upgrade a read lock when possible, otherwise it releases the read lock and acquires the write lock before rechecking the condition.
+
+### Important classes
+
+- `DeliveryLocationTracker` combines optimistic reads, validated fallback reads, exclusive writes, and safe lock conversion.
+- `DeliveryLocation` is an immutable driver-position value.
+- `Main` runs concurrent tracking reads and refreshes an old location.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.lockapi.stampedlock.Main`
+
+### Reason to use
+
+Use `StampedLock` for highly read-heavy state when optimistic reads can usually succeed and readers can cheaply retry if a writer changes the state.
+
+### Takeaway
+
+An optimistic read is not a lock: always validate its stamp before trusting data read under it. `StampedLock` is not reentrant, so keep lock scopes small and never attempt nested acquisition by the same thread.
