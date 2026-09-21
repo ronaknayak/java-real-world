@@ -134,3 +134,31 @@ Use `ReentrantLock` when a synchronized block needs features such as interruptib
 ### Takeaway
 
 Always pair a successful `lock`, `lockInterruptibly`, or `tryLock` with `unlock` in a `finally` block. Use conditions with a `while` loop because a waiting thread must recheck its queue state after it wakes.
+
+## ReentrantReadWriteLock product catalog
+
+### Business problem
+
+An ecommerce catalog serves many availability lookups while a much smaller number of import jobs refresh product data. Serializing every lookup behind every refresh reduces throughput unnecessarily.
+
+### Design
+
+`ProductCatalog` uses a fair `ReentrantReadWriteLock`. Lookup and snapshot methods acquire its read lock, allowing multiple readers to run together. Refresh and availability-update methods acquire its write lock, which is exclusive and publishes a complete catalog change atomically. Returned availability objects and snapshots are immutable, so callers cannot change catalog data after the lock is released.
+
+### Important classes
+
+- `ProductCatalog` protects read-heavy product availability with separate read and write locks.
+- `ProductAvailability` is an immutable catalog value.
+- `Main` starts multiple readers and one catalog-refresh writer.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.lockapi.reentrantreadwrite.Main`
+
+### Reason to use
+
+Use `ReentrantReadWriteLock` when reads are much more common than writes and concurrent readers can safely use the same stable data.
+
+### Takeaway
+
+The read lock allows readers to share access; the write lock excludes both readers and other writers. Always release either lock in a `finally` block, and avoid attempting to upgrade from a read lock to a write lock because it can deadlock.
