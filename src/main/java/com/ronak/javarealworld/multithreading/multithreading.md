@@ -53,3 +53,57 @@ Use `static synchronized` when mutable data belongs to the class and every insta
 ### Takeaway
 
 A static synchronized method is equivalent to synchronizing on the class object: `synchronized (SettlementBatchSequence.class)`.
+
+## Volatile shutdown visibility
+
+### Business problem
+
+A fulfillment polling worker runs on its own thread and needs to stop promptly when the application begins a graceful shutdown. The shutdown request comes from a different thread.
+
+### Design
+
+`PollingWorker.shutdownRequested` is `volatile`. The application thread writes `true` through `requestShutdown`, and the polling thread reads the same field in its loop. The volatile write is visible to later volatile reads, so the worker can observe the request without synchronizing the whole loop.
+
+### Important classes
+
+- `PollingWorker` owns the volatile shutdown signal and the polling loop.
+- `Main` starts the worker, waits until it is running, and requests shutdown from the main thread.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.visibility.Main`
+
+### Reason to use
+
+Use `volatile` for a simple shared state signal, such as a stop flag, when threads only need the latest value and do not need a multi-step update to be atomic.
+
+### Takeaway
+
+`volatile` provides visibility and ordering for one field; it does not make operations such as `count++` atomic. Use `synchronized`, locks, or atomic classes when a read-modify-write operation must be coordinated.
+
+## Private lock dispatch queue
+
+### Business problem
+
+Several order-processing workers add completed orders to one dispatch queue. The queue must not lose requests or corrupt its internal ordering when workers submit orders at the same time.
+
+### Design
+
+`DispatchQueue` keeps `private final Object lock = new Object();` and synchronizes every access to its mutable queue on that object. Because the lock is private and final, callers cannot acquire it, replace it, or accidentally make the queue's synchronization depend on the public object monitor.
+
+### Important classes
+
+- `DispatchQueue` owns the dispatch IDs, the private lock, and synchronized queue operations.
+- `Main` starts two order workers that submit dispatch requests concurrently.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.privatelock.Main`
+
+### Reason to use
+
+Use a private lock when a class needs to protect its own mutable state without exposing its locking choice to other code.
+
+### Takeaway
+
+A `private final` lock keeps synchronization encapsulated. Do not lock on publicly reachable objects such as `this`, strings, or boxed values when unrelated code could acquire the same monitor.
