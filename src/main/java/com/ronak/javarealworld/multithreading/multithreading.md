@@ -190,3 +190,31 @@ Use `StampedLock` for highly read-heavy state when optimistic reads can usually 
 ### Takeaway
 
 An optimistic read is not a lock: always validate its stamp before trusting data read under it. `StampedLock` is not reentrant, so keep lock scopes small and never attempt nested acquisition by the same thread.
+
+## Fixed thread-pool executor
+
+### Business problem
+
+An order service needs to process independent fulfillment requests concurrently, but it must cap worker count and queued work so a traffic spike cannot exhaust application memory or downstream capacity.
+
+### Design
+
+`FixedThreadPoolExecutor` configures `ThreadPoolExecutor` with equal core and maximum worker counts and a bounded `ArrayBlockingQueue`. Workers have meaningful names for diagnostics. The abort rejection policy makes overload visible through `RejectedExecutionException`. The wrapper exposes task submission, immutable metrics, and timed graceful shutdown; on timeout it interrupts remaining work and preserves the caller's interrupt status.
+
+### Important classes
+
+- `FixedThreadPoolExecutor` owns the bounded executor, lifecycle, metrics, and worker naming.
+- `OrderFulfillmentTask` performs one simulated fulfillment step and returns a result through `Future`.
+- `Main` submits orders, waits for results, reports metrics, and shuts down the pool.
+
+### Run target
+
+`com.ronak.javarealworld.multithreading.threadpool.fixedthreadpool.Main`
+
+### Reason to use
+
+Use a fixed thread pool when tasks are independent and the service needs predictable concurrency and a firm limit on waiting work.
+
+### Takeaway
+
+Avoid `Executors.newFixedThreadPool` for production workloads because its queue is unbounded. Choose worker and queue sizes from workload and downstream limits, handle rejection at the submission boundary, and always shut the executor down.

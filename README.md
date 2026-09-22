@@ -40,14 +40,7 @@ Verification is performed by the repository owner. Do not run Maven commands aut
 - In each topic-log entry, include a short **Reason to use** explanation in simple words.
 
 
-## Codex Execution Instructions
+## Current Task
 
-- Work autonomously within the current project workspace.
-- You are authorized to create, modify, rename, and delete files required for the task.
-- Do not ask for confirmation before editing project files.
-- Do not stop to request permission for routine file changes.
-- Run the required Maven commands, tests, and validations automatically.
-- If an implementation requires changes to multiple files, make all required changes directly.
-- Continue working until the requested task is fully implemented and verified.
-- Only ask for clarification when the requirement itself is ambiguous or a required decision cannot reasonably be determined from the existing project instructions.
-- Do not modify files outside the current project workspace unless explicitly requested.
+- Required implementation: `<SPECIFY_REQUIRED_IMPLEMENTATION>`
+- Target package: `<SPECIFY_TARGET_PACKAGE>`
